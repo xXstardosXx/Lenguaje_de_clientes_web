@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lista de Tareas Interactiva</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="contenedor">
+        <h1>Lista de Tareas Interactiva</h1>
+        <div class="agregar-tarea">
+            <input type="text" id="entradaTarea" placeholder="Nueva tarea...">
+            <button onclick="agregarTarea()">Agregar</button>
+        </div>
+        <div class="seccion-tareas">
+            <h2>Tareas Completadas</h2>
+            <div class="contenedor-lista-tareas">
+                <ul id="tareasCompletadas"></ul>
+            </div>
+        </div>
+        <div class="seccion-tareas">
+            <h2>Tareas Pendientes</h2>
+            <div class="contenedor-lista-tareas">
+                <ul id="tareasPendientes"></ul>
+            </div>
+        </div>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>

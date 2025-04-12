@@ -1,0 +1,151 @@
+/* ESTILOS GENERALES */
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    min-height: 100vh;
+    margin: 0;
+    padding: 20px;
+}
+
+/* CONTENEDOR PRINCIPAL (AHORA CON GRID DE 2 COLUMNAS) */
+.contenedor {
+    background-color: #fff;
+    padding: 25px;
+    border-radius: 10px;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+    width: 90%;
+    max-width: 900px;
+    display: grid;
+    grid-template-columns: 1fr 1fr; /* Dos columnas iguales */
+    gap: 25px; /* Espacio entre columnas */
+}
+
+/* CABECERA (OCUPA AMBAS COLUMNAS) */
+.contenedor > h1 {
+    grid-column: 1 / -1;
+    text-align: center;
+    margin-bottom: 15px;
+    color: #333;
+}
+
+/* SECCIÓN AGREGAR TAREA (OCUPA AMBAS COLUMNAS) */
+.agregar-tarea {
+    grid-column: 1 / -1;
+    display: flex;
+    gap: 12px; /* Separación entre input y botón */
+    margin-bottom: 10px;
+}
+
+.agregar-tarea input {
+    flex: 1;
+    padding: 12px;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    font-size: 16px;
+}
+
+.agregar-tarea button {
+    padding: 12px 25px;
+    background-color: #28a745;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: background-color 0.3s;
+}
+
+.agregar-tarea button:hover {
+    background-color: #218838;
+}
+
+/* ESTILOS PARA AMBAS SECCIONES DE TAREAS */
+.seccion-tareas h2 {
+    font-size: 1.3em;
+    margin-bottom: 15px;
+    padding-bottom: 8px;
+    border-bottom: 2px solid #eee;
+    color: #444;
+}
+
+.contenedor-lista-tareas {
+    height: 400px;
+    overflow-y: auto;
+    border: 1px solid #e1e1e1;
+    border-radius: 8px;
+    padding: 10px;
+    background-color: #fafafa;
+}
+
+/* LISTA DE TAREAS */
+ul {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+}
+
+li {
+    background-color: white;
+    padding: 12px;
+    margin-bottom: 10px;
+    border-radius: 6px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+    border-left: 4px solid transparent;
+    transition: all 0.3s ease;
+}
+
+/* ESTADOS DE TAREAS */
+li.completada {
+    border-left-color: #28a745;
+    opacity: 0.9;
+}
+
+li.pendiente {
+    border-left-color: #ffc107;
+}
+
+/* BOTONES DE ACCIÓN */
+li button {
+    border: none;
+    border-radius: 4px;
+    padding: 6px 10px;
+    cursor: pointer;
+    font-size: 0.85em;
+    margin-left: 8px;
+    transition: all 0.2s;
+}
+
+li .alternar-estado {
+    background-color: #ffc107;
+    color: #000;
+}
+
+li .alternar-estado:hover {
+    background-color: #e0a800;
+}
+
+li .eliminar {
+    background-color: #dc3545;
+    color: white;
+}
+
+li .eliminar:hover {
+    background-color: #c82333;
+}
+
+/* RESPONSIVE: UNA COLUMNA EN MÓVILES */
+@media (max-width: 768px) {
+    .contenedor {
+        grid-template-columns: 1fr;
+    }
+    
+    .contenedor-lista-tareas {
+        height: 300px;
+    }
+}
