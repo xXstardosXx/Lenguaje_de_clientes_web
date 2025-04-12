@@ -163,8 +163,6 @@ function cargarTransacciones(filtroTipo = "todos") {
         eliminarTransaccion(transaccion.id)
       })
       number++
-      
-
       lista.appendChild(item);
     });
   };
@@ -176,7 +174,7 @@ function cargarTransacciones(filtroTipo = "todos") {
 
 // Función para actualizar el balance
 function actualizarBalance() {
-  const transaction = db.transaction(["transacciones"], "readonly");
+  const transaction = db.transaction(["transacciones", "estimados"], "readonly");
   const store = transaction.objectStore("transacciones");
   const request = store.getAll();
 
@@ -199,6 +197,20 @@ function actualizarBalance() {
     console.error("Error al calcular el balance.");
     document.getElementById("balance-actual").textContent = "Error al calcular.";
   };
+
+  const storeEstimados = transaction.objectStore("estimados")
+  const requestEstimados = storeEstimados.getAll()
+
+  requestEstimados.onsuccess = () =>{
+    const transacciones = requestEstimados.result;
+    let balance = 0;
+
+    transacciones.forEach((t) => {
+      balance += t.monto
+    });
+
+    document.getElementById("balance-estimado").textContent = `$${balance.toFixed(2)}`;
+  }
 }
 
 // Función para eliminar transacciones
@@ -211,6 +223,18 @@ function eliminarTransaccion(id) {
     cargarTransacciones();
     actualizarBalance();
     actualizarUltimaTransaccion();
+    actualizarGrafico();
+  };
+}
+
+function eliminarEstimado(id) {
+  const transaction = db.transaction(["estimados"], "readwrite");
+  const store = transaction.objectStore("estimados");
+
+  store.delete(id).onsuccess = () => {
+    alert("Estimado eliminado.");
+    cargarEstimados();
+    actualizarBalance();
     actualizarGrafico();
   };
 }
@@ -283,6 +307,7 @@ document.getElementById("form-estimados").addEventListener("submit", async (e) =
 
   const mes = document.getElementById("mes").value;
   const montoEstimado = parseFloat(document.getElementById("monto-estimado").value);
+  const categoria = document.getElementById("categoriaEstimado").value.toLowerCase();
 
   async function getID(){
     return new Promise((resolve, reject) => {
@@ -302,7 +327,7 @@ document.getElementById("form-estimados").addEventListener("submit", async (e) =
     const transaction = db.transaction(["estimados"], "readwrite");
     const store = transaction.objectStore("estimados");
     
-    const estimado = { id, mes, monto: montoEstimado };
+    const estimado = { id, mes, monto: montoEstimado, categoria : categoria };
 
     const request = store.add(estimado);
     request.onsuccess = () => {
@@ -327,10 +352,15 @@ function cargarEstimados() {
   request.onsuccess = () => {
     const lista = document.getElementById("lista-estimados");
     lista.innerHTML = "";
-
+    let number = 1;
     request.result.forEach((estimado) => {
       const item = document.createElement("li");
-      item.textContent = `Mes: ${estimado.mes}, Monto Estimado: $${estimado.monto.toFixed(2)}`;
+      item.innerHTML = `Mes: ${estimado.mes}, Monto Estimado: $${estimado.monto.toFixed(2)}, Categoria: ${estimado.categoria} <img src="trash.svg" class="img" id="DE${number}"></img>`;
+      const button = item.querySelector("#DE"+number)
+      button.addEventListener("click", () =>{
+        eliminarEstimado(estimado.id)
+      })
+      number++
       lista.appendChild(item);
     });
 
