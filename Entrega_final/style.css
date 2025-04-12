@@ -52,7 +52,7 @@
 /* Colores y fuentes */
 :root {
   --background-color: #1f1e1e;
-  --primary-color: #4caf50;
+  --primary-color: #4b0d5e;
   --secondary-color: #ff9800;
   --text-color: #fff;
   --tab-bg: rgb(56, 56, 56);
@@ -78,15 +78,15 @@ header {
 /* Títulos de sección */
 section h3 {
   font-size: 1.5rem;
-  color: #4CAF50;
+  color: #e3ebe4;
   margin-bottom: 1rem;
-  border-bottom: 2px solid #4CAF50;
+  border-bottom: 2px solid #ffffff;
   padding-bottom: 0.5rem;
 }
 
 /* Tarjetas informativas */
 .card {
-  background-color: rgb(0, 66, 0); /* Verde claro */
+  background-color: #4b0d5e; /* Verde claro */
   padding: 0.3rem;
   border-radius: 10px;
   margin-bottom: 1rem;
