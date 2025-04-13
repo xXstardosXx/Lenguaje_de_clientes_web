@@ -17,6 +17,7 @@
     <button class="tab active" onclick="mostrarPestaña('resumen')">📉 Resumen</button>
     <button class="tab" onclick="mostrarPestaña('transacciones')">📋 Transacciones</button>
     <button class="tab" onclick="mostrarPestaña('estimados')">📊 Gastos Estimados</button>
+    <button class="tab" onclick="mostrarPestaña('categorias')">📓 Categorias</button>
 
   </nav>
   
@@ -64,8 +65,7 @@
         <label for="fecha">Fecha:</label>
         <input type="date" id="fecha" required>
         <label for="categoria">Categoría:</label>
-        <input id="categoria" placeholder="Ingrese la categoria" required>
-        </input>
+        <select id="categoria" required></select>
         <button type="submit">Añadir Transacción</button>
       </form>
       
@@ -80,11 +80,20 @@
         <input type="month" id="mes" required>
         <label for="monto-estimado">Monto Estimado:</label>
         <input type="number" id="monto-estimado" required>
-        <label for="categoria">Categoría:</label>
-        <input id="categoriaEstimado" placeholder="Ingrese la categoria" required>
+        <label for="categoriaEstimado">Categoría:</label>
+        <select id="categoriaEstimado" required></select>
         <button type="submit">Guardar Estimado</button>
       </form>
       <ul id="lista-estimados"></ul>
+    </section>
+
+    <section id="categorias" class="pestaña-oculta">
+      <h2>Crear nueva categoria</h2>
+      <form id="form-categorias">
+        <label for="nombre-categoria">Nombre de la categoria:</label>
+        <input placeholder="Ingrese el nombre de la categoria" id="nombre-categoria" required>
+        <button type="submit">Guardar Categoria</button>
+      </form>
     </section>
 
   </main>

@@ -18,6 +18,7 @@ request.onupgradeneeded = (event) => {
 
   // Object Store para gastos estimados
   db.createObjectStore("estimados", { keyPath: "id" });
+  db.createObjectStore("categorias", {keyPath: "valor"})
 };
 
 request.onsuccess = (event) => {
@@ -30,6 +31,7 @@ request.onsuccess = (event) => {
   actualizarUltimaTransaccion();
   actualizarGrafico();
   cargarEstimados();
+  cargarCategorias();
 };
 
 request.onerror = (event) => {
@@ -62,6 +64,55 @@ function mostrarPestaña(id) {
   // Asegurar que balance y última transacción se actualicen
   actualizarBalance();
   actualizarUltimaTransaccion();
+}
+
+// hola
+document.getElementById("form-categorias").addEventListener("submit", (e) =>{
+  e.preventDefault();
+
+  const categoriaName = document.getElementById("nombre-categoria").value
+  const categoria = {nombre : categoriaName, valor : categoriaName.toLowerCase()}
+  const transaction = db.transaction(["categorias"], "readwrite");
+  const store = transaction.objectStore("categorias");
+  const request = store.add(categoria)
+  
+  request.onsuccess = () =>{
+    alert("Se ha creado la categoria exitosamente!")
+    cargarCategorias()
+  }
+
+  request.onerror = () => {
+    alert("Ha ocurrido un error al crear la categoria pipipipipi")
+  }
+  
+})
+
+function cargarCategorias(){
+  const selectTransaccion = document.getElementById("categoria")
+  const selectEstimado = document.getElementById("categoriaEstimado")
+
+  const transaction = db.transaction(["categorias"], "readonly");
+  const store = transaction.objectStore("categorias");
+  const request = store.getAll()
+
+  request.onsuccess = () => {
+
+    const transaccionNodos = selectTransaccion.children
+    const estimadoNodos = selectEstimado.children
+      if(transaccionNodos.length > 0 ){
+        for(let i = transaccionNodos.length - 1; i >= 0; i--){
+          transaccionNodos[i].remove()
+          estimadoNodos[i].remove()
+        }
+      }
+
+    request.result.forEach((categorias) => {
+      const optionTransaccion = new Option(categorias.nombre, categorias.valor)
+      const optionEstimado = new Option(categorias.nombre, categorias.valor)
+      selectTransaccion.appendChild(optionTransaccion)
+      selectEstimado.appendChild(optionEstimado)
+    });
+  };
 }
 
 // Función para añadir transacción
@@ -114,7 +165,7 @@ function actualizarUltimaTransaccion() {
 
     if (transacciones.length > 0) {
       const ultimaTransaccion = transacciones.reduce((masReciente, actual) =>
-        new Date(actual.fecha) > new Date(masReciente.fecha) ? actual : masReciente
+        new Date(actual.fecha) >= new Date(masReciente.fecha) ? actual : masReciente
       );
 
       document.getElementById("ultima-transaccion").textContent = `${ultimaTransaccion.tipo.toUpperCase()} de $${ultimaTransaccion.monto.toFixed(
@@ -209,7 +260,7 @@ function actualizarBalance() {
       balance += t.monto
     });
 
-    document.getElementById("balance-estimado").textContent = `$${balance.toFixed(2)}`;
+    document.getElementById("balance-estimado").textContent = `$${(parseFloat(document.getElementById("balance-actual").textContent.split("$")[1]).toFixed(2) - balance.toFixed(2)).toFixed(2)}`;
   }
 }
 
