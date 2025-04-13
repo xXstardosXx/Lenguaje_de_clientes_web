@@ -1,50 +1,66 @@
 /* Media query para pantallas pequeñas */
 @media (max-width: 768px) {
   body {
-    font-size: 14px; /* Reducir el tamaño de fuente */
-    padding: 0 10px; /* Añadir espacio alrededor del contenido */
+    font-size: 14px;
+    padding: 0 10px;
   }
 
   header {
-    font-size: 1rem; /* Ajustar el tamaño del texto del encabezado */
-    padding: 0.5rem; /* Reducir el padding */
+    font-size: 1.2rem; /* Aumenté ligeramente el tamaño para mejor legibilidad */
+    padding: 1rem 0.5rem; /* Ajusté el padding vertical */
+    white-space: normal; /* Permite que el texto se ajuste en múltiples líneas */
+    line-height: 1.4; /* Mejor espaciado entre líneas */
+    overflow: visible; /* Evita que se corte el texto */
   }
 
   nav {
-    flex-direction: column; /* Cambiar a diseño vertical */
-    gap: 5px; /* Reducir el espacio entre botones */
+    flex-direction: column;
+    gap: 5px;
   }
 
   .tab {
-    width: 100%; /* Hacer que los botones ocupen todo el ancho */
+    width: 100%;
     text-align: center;
   }
 
   main {
-    padding: 1rem; /* Reducir el padding general */
+    padding: 1rem;
   }
 
   section {
-    width: 100%; /* Asegurar que las secciones ocupen todo el ancho */
-    max-width: none; /* Eliminar el límite de ancho */
-    margin-bottom: 1rem; /* Reducir el espacio entre secciones */
+    width: 100%;
+    max-width: none;
+    margin-bottom: 1rem;
   }
 
   .card {
-    margin-bottom: 10px; /* Reducir el margen entre tarjetas */
-    padding: 1rem; /* Ajustar el padding */
+    margin-bottom: 10px;
+    padding: 1.5rem; /* Aumenté el padding para mejor espaciado */
+    overflow: visible; /* Asegura que todo el contenido sea visible */
+  }
+
+  /* Estilos específicos para la sección de transacciones */
+  .transactions-section {
+    min-height: 200px; /* Altura mínima para evitar que se vea cortado */
+    display: flex;
+    flex-direction: column;
+  }
+
+  .transactions-list {
+    flex-grow: 1; /* Hace que la lista ocupe todo el espacio disponible */
+    overflow-y: auto; /* Permite scroll si el contenido es muy largo */
   }
 
   form {
-    gap: 0.5rem; /* Reducir el espacio entre elementos del formulario */
+    gap: 0.5rem;
   }
 
   form input, form select, form button {
-    font-size: 0.9rem; /* Reducir el tamaño de los elementos */
+    font-size: 0.9rem;
   }
 
   canvas {
-    max-width: 100%; /* Asegurar que el gráfico se ajuste al ancho */
+    max-width: 100%;
     height: auto;
   }
 }
