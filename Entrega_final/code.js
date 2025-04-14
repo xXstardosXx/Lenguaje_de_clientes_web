@@ -260,7 +260,7 @@ function actualizarBalance() {
       balance += t.monto
     });
 
-    document.getElementById("balance-estimado").textContent = `$${(parseFloat(document.getElementById("balance-actual").textContent.split("$")[1]).toFixed(2) - balance.toFixed(2)).toFixed(2)}`;
+    document.getElementById("balance-estimado").textContent = `$${(parseFloat(document.getElementById("balance-actual").textContent.split("$")[1]).toFixed(2) - -balance.toFixed(2)).toFixed(2)}`;
   }
 }
 
